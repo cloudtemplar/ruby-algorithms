@@ -22,18 +22,3 @@ class CaesarCipher
   end
 
 end
-
-
-=begin
-our plan:
-get string
-iterate through each character. we want to save case
-if character is capital, add (factor) to its Ascii value
-resolving value cant exceed ascii range for capitals
-do the same for "little" letters
-
-A-Z ==  65- 90
-a-z ==  97-122
-
-
-=end
