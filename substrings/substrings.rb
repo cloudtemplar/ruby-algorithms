@@ -4,9 +4,7 @@ def substrings(words, dictionary)
 
   words.each do |word|
     dictionary.each do |substring|
-      if /#{substring}/ =~ word
-        substrings_frequency[substring] += 1
-      end
+      substrings_frequency[substring] += 1 if /#{substring}/ =~ word
     end
   end
   substrings_frequency
