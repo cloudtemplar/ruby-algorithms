@@ -51,9 +51,20 @@ describe Enumerable do
 
   describe '#my_select' do
     # let(:numbers) { [2, 1, 3, 7] }
+    # let(:domains) { { de: 'germany', dk: 'denmark' } }
+    let(:domes) { { dk: 'denmark' } }
     it 'returns an array of elements for which the block\'s return value was truthy' do
       expect(numbers.my_select { |el| el > 2 }).to eq([3, 7])
       expect(numbers.my_select { |el| true }).to eq([2, 1, 3, 7])
+    end
+
+    it 'works with hashes' do
+      expect(domains.my_select { |domain, country| country[0] == 'd' }).to eq({:dk=>"denmark"})
+    end
+
+    it "doesn't return elements for which the block was falsey" do
+      expect(numbers.my_select { |el| false }).to eq([])
+      expect(domains.my_select { |domain, country| country[0] == 'x' }).to eq({})
     end
   end
 
@@ -61,10 +72,10 @@ describe Enumerable do
     # let(:pet_names) { %w( Bailey Bella Buddy ) }
     # let(:car_makes) { %w( Bentley Mercedes Chrysler ) }
     it 'returns true if block\'s return value was truthy for each element' do
-      expect(pet_names.my_all? { |name| name[0].downcase == 'b' }).to be_true
+      expect(pet_names.my_all? { |name| name[0].downcase == 'b' }).to be_truthy
     end
     it 'returns false if any of the block\'s return values was falsey' do
-      expect(car_makes.my_all? { |name| name[0].downcase == 'b' }).to be_false
+      expect(car_makes.my_all? { |name| name[0].downcase == 'b' }).to be_falsey
     end
   end
 
