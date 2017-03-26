@@ -79,14 +79,49 @@ describe Enumerable do
     end
   end
 
-  describe '#my_any?'
+  describe '#my_any?' do
+    # let(:numbers) { [2, 1, 3, 7] }
+    it 'returns true if block\'s value was truthy for any of the elements' do
+      expect(numbers.my_any? { |el| el > 3 }).to be_truthy
+    end
 
-  describe 'my_none?'
+    it 'returns false if block\'s value was falsey for all of the elements' do
+      expect(car_makes.my_any? { |make| make[0] == 'A'}).to be_falsey
+    end
+  end
 
-  describe '#my_count'
+  describe 'my_none?' do
+    it 'returns true if block\'s value was falsey for all of the elements' do
+      expect(car_makes.my_none? { |make| make[0] == 'A'}).to be_truthy
+    end
+  end
 
-  describe '#my_map'
+  describe '#my_count' do
+    # let(:numbers) { [2, 1, 3, 7] }
+    it 'returns the size of an array' do
+      expect(numbers.my_count).to eq(4)
+    end
 
-  describe '#my_inject'
+    # let(:domains) { { de: 'germany', dk: 'denmark' } }
+    it 'returns the size of a hash' do
+      expect(domains.my_count).to eq(2)
+    end
+  end
+
+  describe '#my_map' do
+    # let(:numbers) { [2, 1, 3, 7] }
+    it 'returns an array of each block\'s value' do
+      expect(numbers.my_map { |num| num.to_s + 'foo' }).to eq(['2foo', '1foo', '3foo', '7foo'])
+      expect(numbers.my_map { |num| 'quux' }).to eq(['quux', 'quux', 'quux', 'quux'])
+    end
+  end
+
+  describe '#my_inject' do
+    # let(:numbers) { [2, 1, 3, 7] }
+    it 'returns memory value after each block pass and returns memo at the end' do
+      expect(numbers.my_inject { |memo, num| memo + num }).to eq(13)
+      expect(numbers.my_inject { |memo, num| 666 }).to eq(666)
+    end
+  end
 
 end
