@@ -114,6 +114,11 @@ describe Enumerable do
       expect(numbers.my_map { |num| num.to_s + 'foo' }).to eq(['2foo', '1foo', '3foo', '7foo'])
       expect(numbers.my_map { |num| 'quux' }).to eq(['quux', 'quux', 'quux', 'quux'])
     end
+
+    # let(:domains) { { de: 'germany', dk: 'denmark' } }
+    it 'works with hashes too' do
+      expect(domains.my_map { |k, v| 'Country of ' + v}).to eq(['Country of germany', 'Country of denmark'])
+    end
   end
 
   describe '#my_inject' do
@@ -121,6 +126,10 @@ describe Enumerable do
     it 'returns memory value after each block pass and returns memo at the end' do
       expect(numbers.my_inject { |memo, num| memo + num }).to eq(13)
       expect(numbers.my_inject { |memo, num| 666 }).to eq(666)
+    end
+
+    it 'works with initial value passed' do
+      expect(numbers.my_inject(5) { |memo, num| memo + num }).to eq(18)
     end
   end
 
